@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.use('/src', express.static(__dirname + '/src'))
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'))
 })
 
