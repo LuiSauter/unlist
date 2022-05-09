@@ -1,3 +1,10 @@
+import './styles/normalize.css'
+import './styles/global.css'
+import './styles/layout.css'
+import './styles/aside.css'
+import './styles/main.css'
+import maleLogo from './assets/male-avatar.svg'
+
 const deleteIcon = `<svg stroke='currentColor' fill='currentColor' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'>
       <path d='M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z'
       />
@@ -8,6 +15,9 @@ if (typeof window !== 'undefined') {
   const input = document.getElementById('task')
   const list = document.getElementById('list')
   const stats = document.getElementById('stats')
+  const logo = document.getElementById('logo')
+
+  logo.src = maleLogo
 
   let allData = []
 
@@ -19,13 +29,15 @@ if (typeof window !== 'undefined') {
 
   taskForm.addEventListener('submit', (event) => {
     event.preventDefault()
-    addTask()
+    if (input.value !== '') {
+      addTask()
+    }
   })
 
   const addTask = () => {
     allData.push({ id: uid(), title: input.value, checked: false })
-    input.value = ''
     listingData()
+    input.value = ''
     stats.innerHTML = ''
     stats.appendChild(showStats())
   }
@@ -40,7 +52,7 @@ if (typeof window !== 'undefined') {
       const article = document.createElement('article')
       const span = document.createElement('span')
 
-      article.classList.add('task-container')
+      article.classList.add('list-container__item')
 
       article.setAttribute('id', task.id)
       input.setAttribute('type', 'checkbox')
@@ -48,8 +60,10 @@ if (typeof window !== 'undefined') {
       input.classList.add('check')
       input.checked = task.checked
       button.setAttribute('id', 'delete')
+      button.setAttribute('title', 'Delete task')
 
-      label.textContent = task.title
+      label.textContent = task.title.length < 45 ? task.title : `${task.title.substring(0, 45)}...`
+      label.style = task.checked ? 'text-decoration: line-through; color: #848484;' : 'text-decoration: none; color: #ffffff;'
       label.appendChild(input)
       label.appendChild(span)
       button.innerHTML = deleteIcon
@@ -72,6 +86,7 @@ if (typeof window !== 'undefined') {
           }
           stats.innerHTML = ''
           stats.appendChild(showStats())
+          listingData()
         })
       }
       // Delete task
