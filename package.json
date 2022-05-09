@@ -2,33 +2,32 @@
   "name": "todo-vanilla",
   "version": "1.0.0",
   "description": "Todo list app vanilla js",
-  "main": "index.js",
-  "type": "module",
+  "main": "src/index.js",
   "engines": {
     "node": "14.x"
   },
   "scripts": {
-    "babel-node": "babel-node index.js",
-    "dev": "nodemon --exec npm run babel-node -- src/index.js",
-    "build": "babel src --out-dir build",
-    "start": "node build/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "dev": "webpack serve"
   },
   "keywords": [],
   "author": "Luis Gabriel Janco",
   "license": "ISC",
   "devDependencies": {
-    "@babel/cli": "7.17.10",
     "@babel/core": "7.17.10",
-    "@babel/node": "7.17.10",
-    "@babel/plugin-transform-runtime": "7.17.10",
     "@babel/preset-env": "7.17.10",
+    "babel-loader": "8.2.5",
+    "css-loader": "6.7.1",
+    "css-minimizer-webpack-plugin": "3.4.1",
+    "html-webpack-plugin": "5.5.0",
     "jest": "28.0.3",
+    "mini-css-extract-plugin": "2.6.0",
     "nodemon": "2.0.16",
-    "standard": "17.0.0"
-  },
-  "dependencies": {
-    "express": "4.18.1"
+    "standard": "17.0.0",
+    "terser-webpack-plugin": "5.3.1",
+    "webpack": "5.72.0",
+    "webpack-cli": "4.9.2",
+    "webpack-dev-server": "4.9.0"
   },
   "eslintConfig": {
     "extends": [
