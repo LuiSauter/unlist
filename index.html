@@ -7,11 +7,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="This is application to do list vanilla js">
   <base href="/">
-  <link rel="stylesheet" href="src/styles/normalize.css">
   <link rel="stylesheet" href="src/styles/global.css">
   <link rel="stylesheet" href="src/styles/layout.css">
   <link rel="stylesheet" href="src/styles/main.css">
   <link rel="stylesheet" href="src/styles/aside.css">
+  <link rel="stylesheet" href="src/styles/normalize.css">
   <title>Sautertodo | Vanilla js</title>
 </head>
 
@@ -20,26 +20,22 @@
     <aside id="aside">
       <img src="./src/assets/male-avatar.svg" class="avatar" />
     </aside>
+
     <main id="main">
-      <header id="header">To do List</header>
-      <form id="form">
-        <label>
-          <input type="text" name="title" id="title" placeholder="Write your task..." autofocus>
-        </label>
-        <button id="send-form">add</button>
-      </form>
-      <section id="list" class="list-container">
-        <article class="task-container list-container_item" id="1">
+      <div class="content">
+        <header id="header">
+          <h1>UnList - To do List</h1>
+        </header>
+        <form id="form">
           <label>
-            <input type="checkbox" name="check" id="check">
-            Task 1
+            <input type="text" name="title" id="task" placeholder="New task..." autofocus>
           </label>
-          <div id="icon"></div>
-        </article>
-      </section>
-      <section id="stats">
-        <span>Pending tasks: 2 - completed: 3</span>
-      </section>
+          <button id="send-form">add</button>
+        </form>
+        <section id="list" class="list-container"></section>
+        <section id="stats" class="stats"></section>
+
+      </div>
     </main>
   </div>
   <script src="/src/main.js"></script>
