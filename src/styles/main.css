@@ -1,0 +1,161 @@
+:root {
+	--white: #ffffff;
+	--black: #000000;
+	--gray: #363742;
+	--gray-active: #4b4c59;
+	--green: #60e771;
+	--red: #f44250aa;
+}
+
+.content {
+	width: 100%;
+	margin: auto 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+header h1 {
+	font-size: 2rem;
+	margin-top: auto;
+}
+
+form {
+	margin: 1rem 0;
+	width: 90%;
+	height: max-content;
+	display: flex;
+	flex-direction: row;
+	border: 1px solid var(--black);
+	border-radius: 7px;
+	overflow: hidden;
+}
+
+form label {
+	width: 100%;
+}
+
+form input {
+	padding: 1rem 1.5rem;
+	font-size: 1.1rem;
+	width: 100%;
+	outline: none;
+	border: none;
+	background-color: inherit; 
+	color: var(--white);
+}
+form input[type="text"]::placeholder {
+	color: var(--gray-active);
+}
+form button {
+	border: none;
+	background-color: var(--gray);
+	padding: 0 1.5rem;
+	color: var(--white);
+	transition: background-color .2s ease-out;
+}
+form button:hover {
+	background-color: var(--gray-active);
+}
+
+/* Lists */
+.list-container {
+	width: 90%;
+	padding-bottom: 1rem;	
+	gap: 1rem;
+	display: flex;
+	flex-direction: column;
+}
+.task-container {
+	border: 1px solid var(--black);
+	border-radius: 7px;
+	display: flex;
+	padding: 0 0 0 1.5rem;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	transition: background-color .2s ease-out;
+	overflow: hidden;
+}
+.task-container:hover {
+	background-color: var(--gray);
+}
+.task-container label {
+	position: relative;
+	display: flex;
+	align-items: center;
+	padding-left: 35px;
+	cursor: pointer;
+	height: 25px;
+	font-size: 1.1rem;
+	user-select: none;
+}
+.task-container label input {
+	display: none;
+}
+.task-container label span {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 25px;
+	width: 25px;
+	background-color: var(--gray-active);
+	border-radius: 100%;
+	transition: background-color .2s ease-out;
+}
+.task-container label:hover input ~ span {
+	background-color: var(--backgroud);
+	border-radius: 100%;
+}
+.task-container label input:checked ~ span {
+	background-color: var(--green);
+	border-radius: 100%;
+}
+
+.task-container label span:after {
+	content: "";
+	display: none;
+}
+.task-container label input:checked ~ span:after {
+	display: block;
+}
+.task-container label span:after {
+	margin: 4px 0 0 9px;
+  width: 5px;
+  height: 10px;
+  border: solid #222;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.task-container button {
+	border: none;
+	padding: 0.88rem 1.5rem;
+	background-color: transparent;
+	cursor: pointer;
+	color: inherit;
+	transition: all .1s ease-out;
+	display: flex;
+}
+.task-container button:hover {
+	background-color: var(--red);
+}
+.task-container svg {
+	width: 1.5rem;
+}
+
+/* Stats */
+.stats {
+	color: var(--gray-active);
+	font-size: 1.1rem;
+}
+
+@media screen and (min-width: 640px) {
+	form {
+		width: 80%;
+	}
+	.list-container {
+		width: 80%;
+	}
+}

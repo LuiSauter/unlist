@@ -1,38 +1,45 @@
 #root {
-  display: grid;
-  grid-template-columns: 1fr 6fr;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   height: 100vh;
   width: 100%;
-  padding: 1rem 0 1rem 1rem;
 }
 
 aside {
-  background-color: #262c3a;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 1rem 0;
-  height: calc(100vh - 2rem);
-  border-radius: 1rem;
-  overflow-y: auto;
+  display: none;
 }
 
 main {
   display: flex;
   flex-direction: column;
+  align-items: center;
   padding: 1rem;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   width: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 @media screen and (min-width: 640px) {
   #root {
-    grid-template-columns: 1fr 4fr;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    padding-left: 1rem;
+  }
+  main {
+    padding: 1rem;
   }
   aside {
-
+    margin-top: 1rem;
+    display: flex;
+    background-color: #262c3a;
+    width: 100%;
+    align-items: flex-start;
+    padding: 1rem;
+    height: calc(100vh - 2rem);
+    border-radius: 1rem;
+    overflow-y: auto;
   }
+
 }
