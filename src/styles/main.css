@@ -21,7 +21,7 @@ header h1 {
 
 form {
 	margin: 1rem 0;
-	width: 90%;
+	width: 100%;
 	height: max-content;
 	display: flex;
 	flex-direction: row;
@@ -49,9 +49,11 @@ form input[type="text"]::placeholder {
 form button {
 	border: none;
 	background-color: var(--gray);
-	padding: 0 1.5rem;
+	padding: 0 0.7rem;
 	color: var(--white);
 	transition: background-color .2s ease-out;
+	font-size: 1.2rem;
+	cursor: pointer;
 }
 form button:hover {
 	background-color: var(--gray-active);
@@ -59,13 +61,13 @@ form button:hover {
 
 /* Lists */
 .list-container {
-	width: 90%;
-	padding-bottom: 1rem;	
+	width: 100%;
+	padding-bottom: 1rem;
 	gap: 1rem;
 	display: flex;
 	flex-direction: column;
 }
-.task-container {
+.list-container__item {
 	border: 1px solid var(--black);
 	border-radius: 7px;
 	display: flex;
@@ -76,25 +78,27 @@ form button:hover {
 	transition: background-color .2s ease-out;
 	overflow: hidden;
 }
-.task-container:hover {
+.list-container__item:hover {
 	background-color: var(--gray);
 }
-.task-container label {
+.list-container__item label {
 	position: relative;
 	display: flex;
+	flex-direction: row;
 	align-items: center;
+	justify-content: center;
 	padding-left: 35px;
+	min-height: 25px;
 	cursor: pointer;
-	height: 25px;
 	font-size: 1.1rem;
 	user-select: none;
 }
-.task-container label input {
+.list-container__item label input {
 	display: none;
 }
-.task-container label span {
+.list-container__item label span {
 	position: absolute;
-	top: 0;
+	top: auto;
 	left: 0;
 	height: 25px;
 	width: 25px;
@@ -102,23 +106,23 @@ form button:hover {
 	border-radius: 100%;
 	transition: background-color .2s ease-out;
 }
-.task-container label:hover input ~ span {
+.list-container__item label:hover input ~ span {
 	background-color: var(--backgroud);
 	border-radius: 100%;
 }
-.task-container label input:checked ~ span {
+.list-container__item label input:checked ~ span {
 	background-color: var(--green);
 	border-radius: 100%;
 }
 
-.task-container label span:after {
+.list-container__item label span:after {
 	content: "";
 	display: none;
 }
-.task-container label input:checked ~ span:after {
+.list-container__item label input:checked ~ span:after {
 	display: block;
 }
-.task-container label span:after {
+.list-container__item label span:after {
 	margin: 4px 0 0 9px;
   width: 5px;
   height: 10px;
@@ -129,19 +133,20 @@ form button:hover {
   transform: rotate(45deg);
 }
 
-.task-container button {
+.list-container__item button {
 	border: none;
-	padding: 0.88rem 1.5rem;
+	padding: 0.88rem 1rem;
 	background-color: transparent;
 	cursor: pointer;
 	color: inherit;
 	transition: all .1s ease-out;
 	display: flex;
 }
-.task-container button:hover {
+.list-container__item button:hover {
 	background-color: var(--red);
+	transition: all .2s ease-out;
 }
-.task-container svg {
+.list-container__item svg {
 	width: 1.5rem;
 }
 
@@ -152,10 +157,16 @@ form button:hover {
 }
 
 @media screen and (min-width: 640px) {
-	form {
+	.content form {
 		width: 80%;
+	}
+	.content form button {
+		padding: 0 1.5rem;
 	}
 	.list-container {
 		width: 80%;
+	}
+	.list-container button {
+		padding: 0.88rem 1.8rem;
 	}
 }
