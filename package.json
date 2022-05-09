@@ -8,13 +8,21 @@
     "node": "14.x"
   },
   "scripts": {
-    "start": "node index.js",
+    "babel-node": "babel-node index.js",
+    "dev": "nodemon --exec npm run babel-node -- src/index.js",
+    "build": "babel src --out-dir build",
+    "start": "node build/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "Luis Gabriel Janco",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "7.17.10",
+    "@babel/core": "7.17.10",
+    "@babel/node": "7.17.10",
+    "@babel/plugin-transform-runtime": "7.17.10",
+    "@babel/preset-env": "7.17.10",
     "jest": "28.0.3",
     "nodemon": "2.0.16",
     "standard": "17.0.0"
