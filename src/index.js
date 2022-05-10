@@ -3,29 +3,29 @@ import './styles/global.css'
 import './styles/layout.css'
 import './styles/aside.css'
 import './styles/main.css'
-import maleLogo from './assets/male-avatar.svg'
+import maleLogo from './assets/to-do-list.svg'
 
-const deleteIcon = `<svg stroke='currentColor' fill='currentColor' viewBox='0 0 1024 1024' xmlns='http://www.w3.org/2000/svg'>
-      <path d='M864 256H736v-80c0-35.3-28.7-64-64-64H352c-35.3 0-64 28.7-64 64v80H160c-17.7 0-32 14.3-32 32v32c0 4.4 3.6 8 8 8h60.4l24.7 523c1.6 34.1 29.8 61 63.9 61h454c34.2 0 62.3-26.8 63.9-61l24.7-523H888c4.4 0 8-3.6 8-8v-32c0-17.7-14.3-32-32-32zm-200 0H360v-72h304v72z'
-      />
-    </svg>`
+import {createTask, allTasks, updateTask, deleteTask} from './indexedDB.js'
+import {uid} from './helper.js'
+
+
+let allData = []
+
+export const getCurrentTasks = (data) => {
+  return allData = data
+}
 
 if (typeof window !== 'undefined') {
   const taskForm = document.getElementById('form')
   const input = document.getElementById('task')
   const list = document.getElementById('list')
-  const stats = document.getElementById('stats')
   const logo = document.getElementById('logo')
 
   logo.src = maleLogo
 
-  let allData = []
-
-  const uid = () => {
-    const head = Date.now().toString(36)
-    const tail = Math.random().toString(36).substring(2)
-    return head + tail
-  }
+  window.addEventListener('load', () => {
+    allTasks()
+  })
 
   taskForm.addEventListener('submit', (event) => {
     event.preventDefault()
@@ -35,58 +35,23 @@ if (typeof window !== 'undefined') {
   })
 
   const addTask = () => {
-    allData.push({ id: uid(), title: input.value, checked: false })
-    listingData()
+    createTask({id: uid(), title: input.value, checked: false})
+    //allTasks().addEventListener('success', event => console.log(event.target.result))
+    allTasks()
     input.value = ''
-    stats.innerHTML = ''
-    stats.appendChild(showStats())
-  }
-
-  const listingData = () => {
-    const fragment = document.createDocumentFragment()
-    list.innerHTML = ''
-    allData.map((task) => {
-      const label = document.createElement('label')
-      const input = document.createElement('input')
-      const button = document.createElement('button')
-      const article = document.createElement('article')
-      const span = document.createElement('span')
-
-      article.classList.add('list-container__item')
-
-      article.setAttribute('id', task.id)
-      input.setAttribute('type', 'checkbox')
-      input.setAttribute('name', 'check')
-      input.classList.add('check')
-      input.checked = task.checked
-      button.setAttribute('id', 'delete')
-      button.setAttribute('title', 'Delete task')
-
-      label.textContent = task.title.length < 45 ? task.title : `${task.title.substring(0, 45)}...`
-      label.style = task.checked ? 'text-decoration: line-through; color: #848484;' : 'text-decoration: none; color: #ffffff;'
-      label.appendChild(input)
-      label.appendChild(span)
-      button.innerHTML = deleteIcon
-
-      article.appendChild(label)
-      article.appendChild(button)
-      return fragment.appendChild(article)
-    })
-    list.appendChild(fragment)
   }
 
   list.addEventListener('click', (e) => {
+    // update task (checked)
     if (allData.length > 0) {
-      // update task (checked)
       if (e.target.nodeName === 'INPUT') {
         const id = e.target.parentElement.parentElement.id
         return allData.forEach((task, index) => {
           if (task.id === id) {
-            allData[index] = { id, title: task.title, checked: !task.checked }
+            updateTask({id, title: task.title, checked: !task.checked})
+            allData[index] = {id, title: task.title, checked: !task.checked}
           }
-          stats.innerHTML = ''
-          stats.appendChild(showStats())
-          listingData()
+          allTasks()
         })
       }
       // Delete task
@@ -103,18 +68,10 @@ if (typeof window !== 'undefined') {
             id = e.target.parentElement.id
             break
         }
+        deleteTask(id)
         allData = allData.filter(task => task.id !== id)
-        stats.innerHTML = ''
-        stats.appendChild(showStats())
-        listingData()
+        allTasks()
       }
     }
   })
-
-  const showStats = () => {
-    const span = document.createElement('span')
-    const filter = allData.filter(t => t.checked === true)
-    span.textContent = `Pending Tasks: ${allData.length} - Completed: ${filter.length}`
-    return span
-  }
 }
